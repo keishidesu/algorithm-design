@@ -15,6 +15,8 @@ class Generator {
     int value;
     Generator();
   private:
+    std::string getNewEmail (std::string set[], std::string newset[]);
+    std::string getOldEmail (std::string set[], std::string oldset[]);
     std::string getRandomName(int length);
     std::string getRandomDomain (int length);
     std::string getRandomEmail ();
