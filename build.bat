@@ -17,9 +17,9 @@ if "%2" == "debug" (
   set debug=-DBUILD_DEBUG
 )
 if "%buildconf%" == "generator" goto buildGenerator
-if "%buildconf%" == "hashTable" goto buildHashTable
-if "%buildconf%" == "binaryTree" goto buildBinaryTree
-if "%buildconf%" == "priorityHeap" goto buildPriorityHeap
+if "%buildconf%" == "hashtable" goto buildHashTable
+if "%buildconf%" == "binarytree" goto buildBinaryTree
+if "%buildconf%" == "priorityheap" goto buildPriorityHeap
 goto buildAll
 
 :: Generator

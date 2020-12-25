@@ -17,8 +17,7 @@ int main() {
   // example
   // Only run under generator build
   #ifdef BUILD_GENERATOR
-  Generator obj;
-  std::cout << "Generator Build: " << obj.value << std::endl;
+  Generator generator;
   // Only run when debug build is enabled
   #ifdef BUILD_DEBUG
   std::cout << "Generator Build Debug" << std::endl;
@@ -27,10 +26,35 @@ int main() {
 
   // same goes for the rest...
   #ifdef BUILD_HASHTABLE
-  HashTable obj;
-  std::cout << "Hash Table Build: " << obj.value << std::endl;
-  #ifdef BUILD_DEBUG
-  std::cout << "Hash Table Build Debug" << std::endl;
+  #ifdef BUILD_DEBUG  
+  HashTable hashTable(10);
+
+  std::string testEmailList[] = {
+    "PCOS.bXWMe@gRBO.com",
+    "sYSU.Azpug@Jxbd.org",
+    "3pMt.nEG3G@mygr.org",
+    "41OP.Wkad6@ZlsC.org",
+    "GLO1.KLo9z@twqi.org",
+    "rzwS.Tko9M@nUOu.my",
+    "PEQX.HvjYk@lWVs.org",
+    "hLp8.mKNHq@wIAY.com",
+    "nZAm.Iyolb@AIWZ.my",
+    "I8RP.cHnUM@kLWH.org"
+  };
+
+  for (int i = 0 ; i < 10 ; i++) {
+    std::cout << testEmailList[i] << std::endl;
+    hashTable.insert(testEmailList[i]);
+  }
+
+  if (hashTable.hasItem("hLp8.mKNHq@wIAY.com")) {
+    std::cout << "Has Item 1";
+  }
+
+  if (hashTable.hasItem("LE75.3I8vE@rgWT.org")) {
+    std::cout << "Has Item 2";
+  }
+
   #endif
   #endif
 
