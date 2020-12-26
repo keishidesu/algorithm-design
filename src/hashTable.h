@@ -12,7 +12,7 @@ class LinkedList;
 class HashTable {
   public:
     HashTable();
-    HashTable(int numItem);
+    HashTable(std::string fileName, int numItem);
     void insert(std::string email);
     bool hasItem(std::string email);
     void display();

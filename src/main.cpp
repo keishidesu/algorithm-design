@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #ifdef BUILD_GENERATOR
 #include "generator.h"
 #endif
@@ -27,33 +28,58 @@ int main() {
   // same goes for the rest...
   #ifdef BUILD_HASHTABLE
   #ifdef BUILD_DEBUG  
-  HashTable hashTable(10);
+  HashTable hashTable("SetA.txt", 100);
 
-  std::string testEmailList[] = {
-    "PCOS.bXWMe@gRBO.com",
-    "sYSU.Azpug@Jxbd.org",
-    "3pMt.nEG3G@mygr.org",
-    "41OP.Wkad6@ZlsC.org",
-    "GLO1.KLo9z@twqi.org",
-    "rzwS.Tko9M@nUOu.my",
-    "PEQX.HvjYk@lWVs.org",
-    "hLp8.mKNHq@wIAY.com",
-    "nZAm.Iyolb@AIWZ.my",
-    "I8RP.cHnUM@kLWH.org"
-  };
+  // std::string testEmailList[] = {
+  //   "PCOS.bXWMe@gRBO.com",
+  //   "sYSU.Azpug@Jxbd.org",
+  //   "3pMt.nEG3G@mygr.org",
+  //   "41OP.Wkad6@ZlsC.org",
+  //   "GLO1.KLo9z@twqi.org",
+  //   "rzwS.Tko9M@nUOu.my",
+  //   "PEQX.HvjYk@lWVs.org",
+  //   "hLp8.mKNHq@wIAY.com",
+  //   "nZAm.Iyolb@AIWZ.my",
+  //   "I8RP.cHnUM@kLWH.org"
+  // };
 
-  for (int i = 0 ; i < 10 ; i++) {
-    std::cout << testEmailList[i] << std::endl;
-    hashTable.insert(testEmailList[i]);
+  // for (int i = 0 ; i < 10 ; i++) {
+  //   std::cout << testEmailList[i] << std::endl;
+  //   hashTable.insert(testEmailList[i]);
+  // }
+
+  std::ifstream file("SetA.txt");
+  std::string email;
+  while(std::getline(file, email)) {
+    if (hashTable.hasItem(email)) {
+      std::cout << "has item: " << email << std::endl;
+    } else {
+      std::cout << "No item: " << email << std::endl;
+    }
   }
 
-  if (hashTable.hasItem("hLp8.mKNHq@wIAY.com")) {
-    std::cout << "Has Item 1";
+  std::ifstream file2("NewSetA.txt");
+  std::string email2;
+  while(std::getline(file2, email2)) {
+    //std::cout << email2 << std::endl;
+    if (hashTable.hasItem(email2)) {
+      std::cout << "has item: " << email2 << std::endl;
+    } else {
+      std::cout << "No item: " << email2 << std::endl;
+    }
   }
 
-  if (hashTable.hasItem("LE75.3I8vE@rgWT.org")) {
-    std::cout << "Has Item 2";
-  }
+  // if (hashTable.hasItem("nZAm.Iyolb@AIWZ.my")) {
+  //   std::cout << "Has Item 1" << std::endl;
+  // } else {
+  //   std::cout << "No Item 1" << std::endl;
+  // }
+
+  // if (hashTable.hasItem("Z8Ym.X3rmT@9RbS.my")) {
+  //   std::cout << "Has Item 2" << std::endl;
+  // } else {
+  //   std::cout << "No Item 2" << std::endl;
+  // }
 
   #endif
   #endif

@@ -1,6 +1,7 @@
 #include "LinkedList.h"
 #include "Node.h"
 #include "ComplexKey.h"
+#include <iostream>
 
 LinkedList::LinkedList() {
   this->head = nullptr;
@@ -16,6 +17,7 @@ void LinkedList::insertNode(Node* node) {
   if (!head) { 
     this->head = node;
     this->tail = node;
+    return;
   }
   this->tail->nextNode = node;
   this->tail = node;
@@ -27,6 +29,7 @@ Node* LinkedList::getNode(ComplexKey key) {
   do {
     if (currentNode->getKey() == key) return currentNode;
     currentNode = currentNode->nextNode;
-  } while (currentNode->nextNode);
+  } while (currentNode);
+  
   return nullptr;
 }
