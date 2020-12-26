@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #ifdef BUILD_GENERATOR
 #include "generator.h"
 #endif
@@ -8,8 +9,8 @@
 #ifdef BUILD_BINARYTREE
 #include "binaryTree.h"
 #endif
-#ifdef BUILD_PRIORITYHEAP
-#include "priorityHeap.h"
+#ifdef BUILD_PRIORITYQUEUE
+#include "priorityQueue.h"
 #endif
 
 int main() {
@@ -42,11 +43,12 @@ int main() {
   #endif
   #endif
 
-  #ifdef BUILD_PRIORITYHEAP
-  PriorityHeap obj;
-  std::cout << "Priority Heap Build: " << obj.value << std::endl;
+  #ifdef BUILD_PRIORITYQUEUE
+  PriorityQueue pqueue;
   #ifdef BUILD_DEBUG
-  std::cout << "Priority Heap Build Debug" << std::endl;
+  std::cout << "Priority Queue Build Debug" << std::endl;
+  PriorityQueue pq("SetA.txt");
+  pq.print();
   #endif
   #endif
 

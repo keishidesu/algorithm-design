@@ -19,7 +19,7 @@ if "%2" == "debug" (
 if "%buildconf%" == "generator" goto buildGenerator
 if "%buildconf%" == "hashTable" goto buildHashTable
 if "%buildconf%" == "binaryTree" goto buildBinaryTree
-if "%buildconf%" == "priorityHeap" goto buildPriorityHeap
+if "%buildconf%" == "priorityQueue" goto buildPriorityQueue
 goto buildAll
 
 :: Generator
@@ -46,10 +46,10 @@ if errorlevel 1 goto buildExit
 if %buildall% == 1 goto buildAllContinue2
 goto buildExit
 
-:: Priority Heap
-:buildPriorityHeap
-echo Building Priority Heap executable...
-g++ src/*.cpp -o build/priorityHeap.exe -DBUILD_PRIORITYHEAP %debug%
+:: Priority Queue
+:buildPriorityQueue
+echo Building Priority Queue executable...
+g++ src/*.cpp -o build/priorityQueue.exe -DBUILD_PRIORITYQUEUE %debug%
 if errorlevel 1 goto buildExit
 if %buildall% == 1 goto buildAllContinue3
 goto buildExit
@@ -68,7 +68,7 @@ goto buildHashTable
 :buildAllContinue1
 goto buildBinaryTree
 :buildAllContinue2
-goto buildPriorityHeap
+goto buildPriorityQueue
 :buildAllContinue3
 goto buildExit
 
