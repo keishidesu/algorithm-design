@@ -24,7 +24,7 @@ Generator::Generator() {
   string* oldSetC = new string[10];
 
   //define a constant random seed
-  srand(0);
+  srand(time(0));
   for(int i = 0; i < 100; i++)
     setA[i] = getRandomEmail();
   

@@ -7,7 +7,7 @@
         "BUILD_GENERATOR",
         "BUILD_HASHTABLE",
         "BUILD_BINARYTREE",
-        "BUILD_PRIORITYHEAP"
+        "BUILD_PRIORITYQUEUE"
       ],
       "browse": {
         "path": ["${workspaceFolder}"]

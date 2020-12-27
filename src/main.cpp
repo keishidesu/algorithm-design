@@ -44,10 +44,23 @@ int main() {
   #endif
 
   #ifdef BUILD_PRIORITYQUEUE
-  PriorityQueue pqueue;
+  PriorityQueue pqueue1("SetA.txt");
+  PriorityQueue pqueue2("SetB.txt");
+  PriorityQueue pqueue3("SetC.txt");
+
+  pqueue1.dequeue(10);
+  pqueue1.printToFile("pq1-SetA");
+
+  pqueue2.dequeue(10);
+  pqueue2.printToFile("pq2-SetB");
+
+  pqueue3.dequeue(10);
+  pqueue3.printToFile("pq3-SetC");
+
   #ifdef BUILD_DEBUG
   std::cout << "Priority Queue Build Debug" << std::endl;
-  PriorityQueue pq("SetA.txt");
+  PriorityQueue pq("OldSetA.txt");
+  pq.dequeue(10);
   pq.print();
   #endif
   #endif
