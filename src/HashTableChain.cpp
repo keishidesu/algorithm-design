@@ -1,20 +1,18 @@
-#ifdef BUILD_HASHTABLE
+#ifdef BUILD_HASHTABLECHAIN
 
 #define PRIME_CONSTANT 9277;
 
-#include "HashTable.h"
+#include "HashTableChain.h"
 #include "LinkedList.h"
 #include "Node.h"
 #include "ComplexKey.h"
 #include <sstream>
-#include <unordered_map>
-#include <vector>
 #include <fstream>
 #include <iostream>
 
-HashTable::HashTable() {}
+HashTableChain::HashTableChain() {}
 
-HashTable::HashTable(std::string fileName, int numItem) {
+HashTableChain::HashTableChain(std::string fileName, int numItem) {
   this->numItem = numItem;
   this->tableSize = numItem*0.9;
   this->hashTable = new LinkedList[tableSize];
@@ -27,7 +25,7 @@ HashTable::HashTable(std::string fileName, int numItem) {
   }
 }
 
-void HashTable::insert(std::string email) {
+void HashTableChain::insert(std::string email) {
   ComplexKey emailKey(email);
   int index = hashFunction(email);
   //std::cout << "Index: " << index << std::endl;
@@ -35,7 +33,7 @@ void HashTable::insert(std::string email) {
   this->hashTable[index].insertNode(node);
 }
 
-bool HashTable::hasItem(std::string email) {
+bool HashTableChain::hasItem(std::string email) {
   ComplexKey emailKey(email);
   int index = hashFunction(email);
   //std::cout << "finding item index:" << index << std::endl;
@@ -43,7 +41,7 @@ bool HashTable::hasItem(std::string email) {
   return false;
 }
 
-int HashTable::hashFunction(std::string email) {
+int HashTableChain::hashFunction(std::string email) {
   ComplexKey emailKey(email);
   int nameA = emailKey.getNameA() % tableSize;
   int nameB = emailKey.getNameB() % tableSize;

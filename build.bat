@@ -17,7 +17,8 @@ if "%2" == "debug" (
   set debug=-DBUILD_DEBUG
 )
 if "%buildconf%" == "generator" goto buildGenerator
-if "%buildconf%" == "hashtable" goto buildHashTable
+if "%buildconf%" == "hashtablechain" goto buildHashTableChain
+if "%buildconf%" == "hashtablelinear" goto buildHashTableLinear
 if "%buildconf%" == "binarytree" goto buildBinaryTree
 if "%buildconf%" == "priorityheap" goto buildPriorityHeap
 goto buildAll
@@ -30,12 +31,19 @@ if errorlevel 1 goto buildExit
 if %buildall% == 1 goto buildAllContinue0
 goto buildExit
 
-:: Hash Table
-:buildHashTable
-echo Building Hash Table executable...
-g++ src/*.cpp -o build/hashTable.exe -DBUILD_HASHTABLE %debug%
+:: Hash Table Chain
+:buildHashTableChain
+echo Building Hash Table Chain executable...
+g++ src/*.cpp -o build/hashTableChain.exe -DBUILD_HASHTABLECHAIN %debug%
 if errorlevel 1 goto buildExit
 if %buildall% == 1 goto buildAllContinue1
+goto buildExit
+
+:buildHashTableLinear
+echo Building Hash Table Linear executable...
+g++ src/*.cpp -o build/hashTableLinear.exe -DBUILD_HASHTABLELINEAR %debug%
+if errorlevel 1 goto buildExit
+if %buildall% == 1 goto buildAllContinue2
 goto buildExit
 
 :: Binary Tree
@@ -43,7 +51,7 @@ goto buildExit
 echo Building Binary Tree executable...
 g++ src/*.cpp -o build/binaryTree.exe -DBUILD_BINARYTREE %debug%
 if errorlevel 1 goto buildExit
-if %buildall% == 1 goto buildAllContinue2
+if %buildall% == 1 goto buildAllContinue3
 goto buildExit
 
 :: Priority Heap
@@ -51,7 +59,7 @@ goto buildExit
 echo Building Priority Heap executable...
 g++ src/*.cpp -o build/priorityHeap.exe -DBUILD_PRIORITYHEAP %debug%
 if errorlevel 1 goto buildExit
-if %buildall% == 1 goto buildAllContinue3
+if %buildall% == 1 goto buildAllContinue4
 goto buildExit
 
 :: Build Everything
@@ -64,12 +72,14 @@ if "%buildconf%" == "debug" (
 echo Building all artifacts...
 goto buildGenerator
 :buildAllContinue0
-goto buildHashTable
+goto buildHashTableChain
 :buildAllContinue1
-goto buildBinaryTree
+goto buildHashTableLinear
 :buildAllContinue2
-goto buildPriorityHeap
+goto buildBinaryTree
 :buildAllContinue3
+goto buildPriorityHeap
+:buildAllContinue4
 goto buildExit
 
 :buildExit

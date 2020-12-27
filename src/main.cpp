@@ -1,10 +1,15 @@
 #include <iostream>
 #include <fstream>
+#include <chrono> 
+
 #ifdef BUILD_GENERATOR
 #include "generator.h"
 #endif
-#ifdef BUILD_HASHTABLE
-#include "hashTable.h"
+#ifdef BUILD_HASHTABLECHAIN
+#include "hashTableChain.h"
+#endif
+#ifdef BUILD_HASHTABLELINEAR
+#include "hashTableLinear.h"
 #endif
 #ifdef BUILD_BINARYTREE
 #include "binaryTree.h"
@@ -26,32 +31,43 @@ int main() {
   #endif
 
   // same goes for the rest...
-  #ifdef BUILD_HASHTABLE
+  #ifdef BUILD_HASHTABLECHAIN
+
+  //setA
+  auto insertStart = std::chrono::steady_clock::now();
+  HashTableChain hashTableChain("SetA.txt", 100);
+  auto insertStop = std::chrono::steady_clock::now();
+  auto insertDuration = std::chrono::duration_cast<std::chrono::nanoseconds>(insertStop - insertStart); 
+  std::cout << "Time taken for hashtable insertion: " << insertDuration.count() << " nanoseconds" << std::endl; 
+
+  //Existing Email from SetA.txt
+  auto findEmailStart1 = std::chrono::steady_clock::now();
+  if (hashTableChain.hasItem("GLO1.KLo9z@twqi.org")) {
+    std::cout << "Has Email 1" << std::endl;
+  } else {
+    std::cout << "No Email 1" << std::endl;
+  }
+  auto findEmailStop1 = std::chrono::steady_clock::now();
+  auto findEmailDuration1 = std::chrono::duration_cast<std::chrono::nanoseconds>(findEmailStop1 - findEmailStart1); 
+  std::cout << "Time taken for hashtable search: " << findEmailDuration1.count() << " nanoseconds" << std::endl; 
+
+  //Non-Existing Email from NewSetA.txt
+  auto findEmailStart2 = std::chrono::steady_clock::now();
+  if (hashTableChain.hasItem("Z8Ym.X3rmT@9RbS.my")) {
+    std::cout << "Has Email 2" << std::endl;
+  } else {
+    std::cout << "No Email 2" << std::endl;
+  }
+  auto findEmailStop2 = std::chrono::steady_clock::now();
+  auto findEmailDuration2 = std::chrono::duration_cast<std::chrono::nanoseconds>(findEmailStop2 - findEmailStart2); 
+  std::cout << "Time taken for hashtable search: " << findEmailDuration2.count() << " nanoseconds" << std::endl; 
+
   #ifdef BUILD_DEBUG  
-  HashTable hashTable("SetA.txt", 100);
-
-  // std::string testEmailList[] = {
-  //   "PCOS.bXWMe@gRBO.com",
-  //   "sYSU.Azpug@Jxbd.org",
-  //   "3pMt.nEG3G@mygr.org",
-  //   "41OP.Wkad6@ZlsC.org",
-  //   "GLO1.KLo9z@twqi.org",
-  //   "rzwS.Tko9M@nUOu.my",
-  //   "PEQX.HvjYk@lWVs.org",
-  //   "hLp8.mKNHq@wIAY.com",
-  //   "nZAm.Iyolb@AIWZ.my",
-  //   "I8RP.cHnUM@kLWH.org"
-  // };
-
-  // for (int i = 0 ; i < 10 ; i++) {
-  //   std::cout << testEmailList[i] << std::endl;
-  //   hashTable.insert(testEmailList[i]);
-  // }
 
   std::ifstream file("SetA.txt");
   std::string email;
   while(std::getline(file, email)) {
-    if (hashTable.hasItem(email)) {
+    if (hashTableChain.hasItem(email)) {
       std::cout << "has item: " << email << std::endl;
     } else {
       std::cout << "No item: " << email << std::endl;
@@ -61,26 +77,41 @@ int main() {
   std::ifstream file2("NewSetA.txt");
   std::string email2;
   while(std::getline(file2, email2)) {
-    //std::cout << email2 << std::endl;
-    if (hashTable.hasItem(email2)) {
+    if (hashTableChain.hasItem(email2)) {
       std::cout << "has item: " << email2 << std::endl;
     } else {
       std::cout << "No item: " << email2 << std::endl;
     }
   }
+  
+  #endif
+  #endif
 
-  // if (hashTable.hasItem("nZAm.Iyolb@AIWZ.my")) {
-  //   std::cout << "Has Item 1" << std::endl;
-  // } else {
-  //   std::cout << "No Item 1" << std::endl;
-  // }
+  #ifdef BUILD_HASHTABLELINEAR
+  #ifdef BUILD_DEBUG
+  HashTableLinear hashTableLinear("SetA.txt", 100);
+  std::ifstream file("SetA.txt");
+  std::string email;
+  while(true) {
+    if (!std::getline(file, email)) {
+      break;
+    }
+    if (hashTableLinear.hasItem(email)) {
+      std::cout << "has item: " << email << std::endl;
+    } else {
+      std::cout << "No item: " << email << std::endl;
+    }
+  }
 
-  // if (hashTable.hasItem("Z8Ym.X3rmT@9RbS.my")) {
-  //   std::cout << "Has Item 2" << std::endl;
-  // } else {
-  //   std::cout << "No Item 2" << std::endl;
-  // }
-
+  std::ifstream file2("NewSetA.txt");
+  std::string email2;
+  while(std::getline(file2, email2)) {
+    if (hashTableLinear.hasItem(email2)) {
+      std::cout << "has item: " << email2 << std::endl;
+    } else {
+      std::cout << "No item: " << email2 << std::endl;
+    }
+  }
   #endif
   #endif
 
