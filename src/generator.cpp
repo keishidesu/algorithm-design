@@ -1,15 +1,14 @@
 #ifdef BUILD_GENERATOR
 
-#include "generator.h"
+#include "Generator.h"
 #include <string>
 #include <fstream>
 #include <chrono>
+#include <iostream>
 
 using namespace std;
 
 Generator::Generator() {
-
-  value = 10;
 
   string* setA = new string[100];
   string* setB = new string[100000];
@@ -25,51 +24,69 @@ Generator::Generator() {
 
   //define a constant random seed
   srand(time(0));
+  std::cout << "Generating set A with 100 data..." << std::endl;
   for(int i = 0; i < 100; i++)
-    setA[i] = getRandomEmail();
+    setA[i] = getRandomEmail(setA);
   
+  std::cout << "Writing set A to SetA.txt..." << std::endl;
   printArray(setA, 100, "SetA");
 
+  std::cout << "Generating set B with 100000 data..." << std::endl;
   for(int i = 0; i < 100000; i++)
-    setB[i] = getRandomEmail();
+    setB[i] = getRandomEmail(setB);
 
+  std::cout << "Writing set B to SetB.txt..." << std::endl;
   printArray(setB, 100000, "SetB");
 
+  std::cout << "Generating set C with 500000 data..." << std::endl;
   for(int i = 0; i < 500000; i++)
-    setC[i] = getRandomEmail();
+    setC[i] = getRandomEmail(setC);
 
+  std::cout << "Writing set C to SetC.txt..." << std::endl;
   printArray(setC, 500000, "SetC");
 
+  std::cout << "Generating set A non-existing search set..." << std::endl;
   // 10 items that cannot be found in each set
   for(int i = 0; i < 10; i++)
     newSetA[i] = getNewEmail(setA, newSetA);
 
+  std::cout << "Writing set A search set to NewSetA.txt..." << std::endl;
   printArray(newSetA, 10, "NewSetA");
 
+  std::cout << "Generating set B non-existing search set..." << std::endl;
   for(int i = 0; i < 10; i++)
     newSetB[i] = getNewEmail(setB, newSetB);
 
+  std::cout << "Writing set B search set to NewSetB.txt..." << std::endl;
   printArray(newSetB, 10, "NewSetB");
 
+  std::cout << "Generating set C non-existing search set..." << std::endl;
   for(int i = 0; i < 10; i++)
     newSetC[i] = getNewEmail(setC, newSetC);
 
+  std::cout << "Writing set C search set to NewSetC.txt..." << std::endl;
   printArray(newSetC, 10, "NewSetC");
 
+  std::cout << "Generating set A existing search set..." << std::endl;
   // 10 items that can be found in each set
   for(int i = 0; i < 10; i++)
     oldSetA[i] = getOldEmail(setA, oldSetA);
 
+  std::cout << "Writing set A search set to OldSetA.txt..." << std::endl;
   printArray(oldSetA, 10, "OldSetA");
 
+ std::cout << "Generating set C existing search set..." << std::endl;
   for(int i = 0; i < 10; i++)
     oldSetB[i] = getOldEmail(setB, oldSetB);
 
+  std::cout << "Writing set A search set to OldSetA.txt..." << std::endl;
   printArray(oldSetB, 10, "OldSetB");
 
+  std::cout << "Generating set C existing search set..." << std::endl;
   for(int i = 0; i < 10; i++)
     oldSetC[i] = getOldEmail(setC, oldSetC);
 
+  std::cout << "Writing set A search set to OldSetA.txt..." << std::endl;
   printArray(oldSetC, 10, "OldSetC");
 }
 
@@ -98,8 +115,9 @@ string Generator::getRandomDomain (int length) {
   return domain;
 }
 
-string Generator::getRandomEmail () {
-  return getRandomName(4) + "." + getRandomName(5) + "@" + getRandomDomain(4);
+string Generator::getRandomEmail (string set[]) {
+  string email = getRandomName(4) + "." + getRandomName(5) + "@" + getRandomDomain(4);
+  return checkDuplication(email, set) ? getRandomEmail(set) : email;
 }
 
 string Generator::getNewEmail (string set[], string newset[]) {
@@ -108,19 +126,8 @@ string Generator::getNewEmail (string set[], string newset[]) {
 
   do {
     existed = false;
-    newEmail = getRandomEmail();
-    for(int i = 0; i < sizeof(*set); i++) {
-      if(set[i] == newEmail) {
-        existed = true;
-        break;
-      }
-    }
-    for(int i = 0; i < sizeof(*newset); i++) {
-      if(newset[i] == newEmail) {
-        existed = true;
-        break;
-      }
-    }
+    newEmail = getRandomEmail(newset);
+    existed = checkDuplication(newEmail, set);
   } while(existed);
   return newEmail;
 }
@@ -132,12 +139,7 @@ string Generator::getOldEmail (string set[], string oldset[]) {
   do {
     existed = false;
     oldEmail = set[rand() % sizeof(*set)];
-    for (int i = 0; i < sizeof(*oldset); i++) {
-      if(oldset[i] == oldEmail) {
-        existed = true;
-        break;
-      }
-    }
+    existed = checkDuplication(oldEmail, oldset);
   } while(existed);
 
   return oldEmail;
@@ -152,4 +154,14 @@ void Generator::printArray (T A[], int n, string name) {
   writeFile.close();
 }
 
+bool Generator::checkDuplication (string email, string set[]) {
+  for(int i = 0; i < sizeof(*set); i++) {
+    if(set[i] == email) {
+      return true;
+    }
+  }
+  return false;
+}
+
 #endif
+   

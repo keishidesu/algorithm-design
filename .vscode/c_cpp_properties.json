@@ -5,7 +5,8 @@
       "defines": [
         "BUILD_DEBUG",
         "BUILD_GENERATOR",
-        "BUILD_HASHTABLE",
+        "BUILD_HASHTABLECHAIN",
+        "BUILD_HASHTABLELINEAR",
         "BUILD_BINARYTREE",
         "BUILD_PRIORITYQUEUE"
       ],

@@ -68,3 +68,11 @@ bool ComplexKey::operator<(const ComplexKey& c) {
   if (this->nameDomain < c.nameDomain) { score+=1; }
   return score > 1;
 }
+
+bool ComplexKey::operator!=(const ComplexKey& c) {
+  return 
+    this->nameA != c.nameA ||
+    this->nameB != c.nameB ||
+    this->nameDomain != c.nameDomain ||
+    this->topLevelDomain != c.topLevelDomain;
+}
