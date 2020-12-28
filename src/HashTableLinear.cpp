@@ -25,16 +25,13 @@ HashTableLinear::HashTableLinear(std::string fileName, int numItem) {
     if (numEmail > numItem) break;
     numEmail++;
     insert(email);
-    //std::cout << email << std::endl;
   }
 }
 
 void HashTableLinear::insert(std::string email) {
   ComplexKey emailKey(email);
   int index = hashFunction(email);
-  //std::cout << "Index: " << index << std::endl;
   while (hashTable[index] != nullptr && hashTable[index]->getKey() != emailKey) {
-    //std::cout << index << std::endl;
     if (++index > tableSize) {
       index = 0;
     }
@@ -46,9 +43,7 @@ bool HashTableLinear::hasItem(std::string email) {
   ComplexKey emailKey(email);
   int index = hashFunction(email);
   int i = index;
-  //std::cout << "finding item index:" << index << std::endl;
   while (true) {
-    //std::cout << index << " " << i << " " << hashTable[i] << std::endl;
     if (hashTable[i] != nullptr) {
       if (hashTable[i]->getKey() == emailKey) { return true; }
     }

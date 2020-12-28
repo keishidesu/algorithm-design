@@ -21,14 +21,12 @@ HashTableChain::HashTableChain(std::string fileName, int numItem) {
   std::string email;
   while(std::getline(file, email)) {
     insert(email);
-    //std::cout << email << std::endl;
   }
 }
 
 void HashTableChain::insert(std::string email) {
   ComplexKey emailKey(email);
   int index = hashFunction(email);
-  //std::cout << "Index: " << index << std::endl;
   Node* node = new Node(emailKey, email);
   this->hashTable[index].insertNode(node);
 }
@@ -36,7 +34,6 @@ void HashTableChain::insert(std::string email) {
 bool HashTableChain::hasItem(std::string email) {
   ComplexKey emailKey(email);
   int index = hashFunction(email);
-  //std::cout << "finding item index:" << index << std::endl;
   if (this->hashTable[index].getNode(emailKey)) { return true; }
   return false;
 }
