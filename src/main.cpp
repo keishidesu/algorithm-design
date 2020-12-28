@@ -17,8 +17,8 @@ int main() {
   // example
   // Only run under generator build
   #ifdef BUILD_GENERATOR
-  Generator obj;
-  std::cout << "Generator Build: " << obj.value << std::endl;
+  Generator generator;
+  std::cout << "Generator Builded!" << std::endl;
   // Only run when debug build is enabled
   #ifdef BUILD_DEBUG
   std::cout << "Generator Build Debug" << std::endl;
