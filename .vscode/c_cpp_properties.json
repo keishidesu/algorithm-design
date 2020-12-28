@@ -8,7 +8,7 @@
         "BUILD_HASHTABLECHAIN",
         "BUILD_HASHTABLELINEAR",
         "BUILD_BINARYTREE",
-        "BUILD_PRIORITYHEAP"
+        "BUILD_PRIORITYQUEUE"
       ],
       "browse": {
         "path": ["${workspaceFolder}"]
