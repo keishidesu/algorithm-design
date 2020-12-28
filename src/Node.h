@@ -13,9 +13,11 @@ class Node {
     ComplexKey getKey();
     std::string getValue();
     Node *nextNode;
+    bool getIsEmpty();
   private:
     ComplexKey key;
     std::string value;
+    bool isEmpty;
 };
 
 #endif

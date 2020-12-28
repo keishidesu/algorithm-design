@@ -14,6 +14,7 @@ class ComplexKey {
     bool operator==(const ComplexKey& c);
     bool operator>(const ComplexKey& c);
     bool operator<(const ComplexKey& c);
+    bool operator!=(const ComplexKey& c);
   private:
     unsigned long long int nameA;
     unsigned long long int nameB;

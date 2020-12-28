@@ -1,6 +1,6 @@
 #ifdef BUILD_GENERATOR
 
-#include "generator.h"
+#include "Generator.h"
 #include <string>
 #include <fstream>
 #include <chrono>
