@@ -8,9 +8,10 @@ $ build
 
 # build individual
 $ build generator
-$ build hashTable
+$ build hashtablechain
+$ build hashtablelinear
 $ build binaryTree
-$ build PriorityHeap
+$ build priorityQueue
 ```
 
 ## Debug Build
@@ -18,7 +19,8 @@ $ build PriorityHeap
 ```
 $ build debug
 $ build generator debug
-$ build hashTable debug
+$ build hashtablechain debug
+$ build hashtablelinear debug
 $ build binaryTree debug
-$ build PriorityHeap debug
+$ build priorityQueue debug
 ```

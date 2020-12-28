@@ -125,7 +125,6 @@ string Generator::getNewEmail (string set[], string newset[]) {
   string newEmail;
 
   do {
-    existed = false;
     newEmail = getRandomEmail(newset);
     existed = checkDuplication(newEmail, set);
   } while(existed);
@@ -137,7 +136,6 @@ string Generator::getOldEmail (string set[], string oldset[]) {
   string oldEmail;
 
   do {
-    existed = false;
     oldEmail = set[rand() % sizeof(*set)];
     existed = checkDuplication(oldEmail, oldset);
   } while(existed);
