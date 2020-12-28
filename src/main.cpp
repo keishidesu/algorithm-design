@@ -25,6 +25,10 @@ int main() {
   // Only run under generator build
   #ifdef BUILD_GENERATOR
   Generator generator;
+<<<<<<< HEAD
+=======
+  std::cout << "Generator Builded!" << std::endl;
+>>>>>>> 077c56e687eec0f4270f6cb4d02de3dae3de836b
   // Only run when debug build is enabled
   #ifdef BUILD_DEBUG
   std::cout << "Generator Build Debug" << std::endl;
