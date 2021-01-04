@@ -54,19 +54,19 @@ bool ComplexKey::operator==(const ComplexKey& c) {
 }
 
 bool ComplexKey::operator>(const ComplexKey& c) {
-  int score = 0;
-  if (this->nameA > c.nameA) { score+=1; }
-  if (this->nameB > c.nameB) { score+=1; }
-  if (this->nameDomain > c.nameDomain) { score+=1; }
-  return score > 1;
+  if (this->nameA > c.nameA) { return true; }
+  if (this->nameB > c.nameB) { return true; }
+  if (this->nameDomain > c.nameDomain) { return true; }
+  if (this->topLevelDomain > c.topLevelDomain) { return true; }
+  return false;
 }
 
 bool ComplexKey::operator<(const ComplexKey& c) {
-  int score = 0;
-  if (this->nameA < c.nameA) { score+=1; }
-  if (this->nameB < c.nameB) { score+=1; }
-  if (this->nameDomain < c.nameDomain) { score+=1; }
-  return score > 1;
+  if (this->nameA < c.nameA) { return true; }
+  if (this->nameB < c.nameB) { return true; }
+  if (this->nameDomain < c.nameDomain) { return true; }
+  if (this->topLevelDomain < c.topLevelDomain) { return true; }
+  return false;
 }
 
 bool ComplexKey::operator!=(const ComplexKey& c) {
