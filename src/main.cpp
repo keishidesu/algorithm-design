@@ -34,19 +34,19 @@ int main() {
 
   // same goes for the rest...
   #ifdef BUILD_HASHTABLECHAIN
-
+  
   constexpr int runs = 2000;
 
   // insertion
   auto insertStart = std::chrono::system_clock::now();
-  HashTableChain hashTableChain("SetA.txt", 100);
+  HashTableChain hashTableChain("SetB.txt", 100000);
   auto insertStop = std::chrono::system_clock::now();
   auto insertDuration = std::chrono::duration_cast<std::chrono::nanoseconds>(insertStop - insertStart); 
   std::cout << "Time taken for hashtable chain insertion: " << insertDuration.count() << " nanoseconds" << std::endl; 
 
   //find exist email
   auto findExistEmailStart = std::chrono::system_clock::now();
-  std::ifstream oldFile("OldSetA.txt");
+  std::ifstream oldFile("OldSetB.txt");
   std::string oldEmail;
   for (int i = 0; i < runs; ++i) {
     while(std::getline(oldFile, oldEmail)) {
@@ -63,7 +63,7 @@ int main() {
   
   //find non exist email
   auto findEmailStart = std::chrono::system_clock::now();
-  std::ifstream newFile("NewSetA.txt");
+  std::ifstream newFile("NewSetB.txt");
   std::string newEmail;
   for (int i = 0; i < runs; ++i) {
     while(std::getline(newFile, newEmail)) {
