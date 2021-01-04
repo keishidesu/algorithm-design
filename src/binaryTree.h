@@ -7,6 +7,7 @@
 #include "ComplexKey.h"
 
 struct avlnode {
+    std::string email;
     ComplexKey current;
     avlnode *left;
     avlnode *right;
@@ -14,9 +15,9 @@ struct avlnode {
 
 class BinaryTree {
   public:
+    struct avlnode *root;
     BinaryTree();
     BinaryTree(std::string fileName);
-    struct avlnode *root = nullptr;
     avlnode *insertElement(avlnode *node, std::string newNode);
     avlnode *balance(avlnode *node);
     avlnode *leftRotate(avlnode *node);
@@ -27,7 +28,6 @@ class BinaryTree {
     int balanceFactor(avlnode *node);
     int getHeight(avlnode *node);
     void searchElement(avlnode *node, std::string searchNode, int height, int index, bool found);
-    void printToFile(std::string fileName);
 };
 
 

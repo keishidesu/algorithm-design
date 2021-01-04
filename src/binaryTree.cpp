@@ -11,6 +11,7 @@
 BinaryTree::BinaryTree() {}
 
 BinaryTree::BinaryTree(std::string fileName) {
+  root = nullptr;
   int x;
   std::string name = fileName;
   std::cout << "Inserting " << fileName << "..." << std::endl;
@@ -18,12 +19,11 @@ BinaryTree::BinaryTree(std::string fileName) {
   std::ifstream file(fileName);
   std::string email;
   while(std::getline(file, email)){
-    // std::cout << email << std::endl;
     ComplexKey ck(email);
-    // std::cout << ck.getNameA << std::endl;
-    // std::cout << ck.getNameB << std::endl;
-    // std::cout << ck.getNameDomain << std::endl;
     insertElement(root, email);
+    if(root != nullptr)
+      std::cout << "Inserted " << email << std::endl;
+    // std::cout << email << std::endl;
   }
   file.close();
   std::cout << "Insertion Complete" << std::endl;
@@ -36,34 +36,42 @@ BinaryTree::BinaryTree(std::string fileName) {
   // search from respective file
   std::string searchFileName = "Old" + fileName;
   std::cout << "Searching from " << searchFileName << "..." << std::endl;
-  start = std::chrono::system_clock::now();
-  std::ifstream searchfile(searchFileName);
+  auto sstart = std::chrono::system_clock::now();
+  std::ifstream searchFile(searchFileName);
   std::string searchEmail;
-  while(std::getline(file, searchEmail)){
+  while(std::getline(searchFile, searchEmail)){
     searchElement(root, searchEmail, 0, 1, false);
   }
-  file.close();
+  searchFile.close();
   std::cout << "Searching Complete" << std::endl;
-  end = std::chrono::system_clock::now();
+  auto send = std::chrono::system_clock::now();
 
-  duration = end - start;
+  std::chrono::duration<double> searchDuration = send - sstart;
   
-  std::cout << "Searching Duration: " << duration.count() << "s\n";
+  std::cout << "Searching Duration: " << searchDuration.count() << "s\n";
 }
 
 avlnode *BinaryTree::insertElement(avlnode *node, std::string newNode) {
   ComplexKey newCK(newNode);
   if (node == nullptr) { // if the node does not exist
     node = new avlnode;
+    node -> email = newNode;
     node -> current = newCK; 
     node -> left = nullptr;
     node -> right  = nullptr;
-    std::cout << "Inserted " << newNode << std::endl;
+    return node;
+    // std::cout << "Inserted " << newNode << std::endl;
   }
-  else if (newCK < node->current)
+  else if (newCK < node -> current) {
     node -> left = insertElement(node -> left, newNode);
-  else
+    node = balance(node);
+    std::cout << "Go left " << std::endl;
+  }
+  else if (newCK > node -> current || newCK == node -> current) {
     node -> right = insertElement(node -> right, newNode);
+    node = balance(node);
+    std::cout << "Go right " << std::endl;
+  }
   return node;
 }
 
@@ -76,9 +84,11 @@ void BinaryTree::searchElement(avlnode *node, std::string searchNode, int height
   }
   else if (node -> current > searchCK) {
     searchElement(node -> left, searchNode, height + 1, index*2+1, found);
+    std::cout << "Search Left " << std::endl;
   }
   else if (node -> current < searchCK) {
     searchElement(node -> right, searchNode, height + 1, index*2+2, found);
+    std::cout << "Search Right " << std::endl;
   }
   else {
     found = true;
