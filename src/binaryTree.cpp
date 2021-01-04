@@ -19,10 +19,8 @@ BinaryTree::BinaryTree(std::string fileName) {
   std::ifstream file(fileName);
   std::string email;
   while(std::getline(file, email)){
-    ComplexKey ck(email);
-    insertElement(root, email);
-    if(root != nullptr)
-      std::cout << "Inserted " << email << std::endl;
+    // ComplexKey ck(email);
+    root = insertElement(root, email);
     // std::cout << email << std::endl;
   }
   file.close();
@@ -36,17 +34,17 @@ BinaryTree::BinaryTree(std::string fileName) {
   // search from respective file
   std::string searchFileName = "Old" + fileName;
   std::cout << "Searching from " << searchFileName << "..." << std::endl;
-  auto sstart = std::chrono::system_clock::now();
-  std::ifstream searchFile(searchFileName);
+  auto sStart = std::chrono::system_clock::now();
+  std::ifstream searchFile(fileName);
   std::string searchEmail;
   while(std::getline(searchFile, searchEmail)){
     searchElement(root, searchEmail, 0, 1, false);
   }
   searchFile.close();
   std::cout << "Searching Complete" << std::endl;
-  auto send = std::chrono::system_clock::now();
+  auto sEnd = std::chrono::system_clock::now();
 
-  std::chrono::duration<double> searchDuration = send - sstart;
+  std::chrono::duration<double> searchDuration = sEnd - sStart;
   
   std::cout << "Searching Duration: " << searchDuration.count() << "s\n";
 }
@@ -59,36 +57,34 @@ avlnode *BinaryTree::insertElement(avlnode *node, std::string newNode) {
     node -> current = newCK; 
     node -> left = nullptr;
     node -> right  = nullptr;
-    return node;
     // std::cout << "Inserted " << newNode << std::endl;
+    return node;
   }
   else if (newCK < node -> current) {
+    // std::cout << "Go left " << std::endl;
     node -> left = insertElement(node -> left, newNode);
-    node = balance(node);
-    std::cout << "Go left " << std::endl;
   }
   else if (newCK > node -> current || newCK == node -> current) {
+    // std::cout << "Go right " << std::endl;
     node -> right = insertElement(node -> right, newNode);
-    node = balance(node);
-    std::cout << "Go right " << std::endl;
   }
+  node = balance(node);
   return node;
 }
 
 void BinaryTree::searchElement(avlnode *node, std::string searchNode, int height, int index, bool found) {
   ComplexKey searchCK(searchNode);
-  std::cout << "in SE" << std::endl;
   if (node == nullptr) {
     found = false;
     std::cout << "Email " << searchNode << " is not found." << std::endl;
   }
   else if (node -> current > searchCK) {
     searchElement(node -> left, searchNode, height + 1, index*2+1, found);
-    std::cout << "Search Left " << std::endl;
+    // std::cout << "Search Left " << std::endl;
   }
   else if (node -> current < searchCK) {
     searchElement(node -> right, searchNode, height + 1, index*2+2, found);
-    std::cout << "Search Right " << std::endl;
+    // std::cout << "Search Right " << std::endl;
   }
   else {
     found = true;
@@ -96,20 +92,13 @@ void BinaryTree::searchElement(avlnode *node, std::string searchNode, int height
   }
 }
 
-int BinaryTree::greater(int x, int y) {
-  if ( x > y ) 
-    return x;
-  return y;
-}
-
 int BinaryTree::getHeight(avlnode *node) {
-  int height = 0;
   if (node == nullptr) 
-    return height;
+    return 0;
   int leftHeight = getHeight(node -> left);
   int rightHeight = getHeight(node -> right);
-  return greater(leftHeight, rightHeight) + 1;
-}
+  return std::max(leftHeight, rightHeight) + 1;
+  }
 
 int BinaryTree::balanceFactor(avlnode *node) {
   int leftHeight = getHeight(node -> left);
@@ -118,15 +107,16 @@ int BinaryTree::balanceFactor(avlnode *node) {
 }
 
 avlnode *BinaryTree::balance(avlnode *node) {
+  // std::cout << "balancing" << std::endl;
   int bf = balanceFactor(node);
   if (bf < -1) {
-    if(balanceFactor(node -> left))
+    if(balanceFactor(node -> left) < 0)
       node = rightRotate(node);
     else
       node = leftRightRotate(node);
   }
   else if (bf > 1) {
-    if(balanceFactor(node -> right))
+    if(balanceFactor(node -> right) < 0)
       node = rightLeftRotate(node);
     else
       node = leftRotate(node);
@@ -136,6 +126,7 @@ avlnode *BinaryTree::balance(avlnode *node) {
 
 // Rotations functions
 avlnode *BinaryTree::rightRotate(avlnode *node) {
+  // std::cout << "right rotating" << std::endl;
   avlnode *temp =  node -> left;
   node -> left = temp -> right;
   temp -> right = node;
@@ -143,6 +134,7 @@ avlnode *BinaryTree::rightRotate(avlnode *node) {
 }
 
 avlnode *BinaryTree::leftRotate(avlnode *node) {
+  // std::cout << "left rotating" << std::endl;
   avlnode *temp =  node -> right;
   node -> right = temp -> left;
   temp -> left = node;
@@ -150,14 +142,16 @@ avlnode *BinaryTree::leftRotate(avlnode *node) {
 }
 
 avlnode *BinaryTree::leftRightRotate(avlnode *node) {
+  // std::cout << "left right rotating" << std::endl;
   avlnode *temp = node -> left;
   node -> left = leftRotate(temp);
   return rightRotate(node);
 }
 
 avlnode *BinaryTree::rightLeftRotate(avlnode *node) {
+  // std::cout << "right left rotating" << std::endl;
   avlnode *temp = node -> right;
-  node -> right = leftRotate(temp);
+  node -> right = rightRotate(temp);
   return leftRotate(node);
 }
 

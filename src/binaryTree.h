@@ -24,7 +24,6 @@ class BinaryTree {
     avlnode *rightRotate(avlnode *node);
     avlnode *leftRightRotate(avlnode *node);
     avlnode *rightLeftRotate(avlnode *node);
-    int greater(int x, int y);
     int balanceFactor(avlnode *node);
     int getHeight(avlnode *node);
     void searchElement(avlnode *node, std::string searchNode, int height, int index, bool found);
