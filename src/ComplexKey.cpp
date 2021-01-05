@@ -55,17 +55,17 @@ bool ComplexKey::operator==(const ComplexKey& c) {
 
 bool ComplexKey::operator>(const ComplexKey& c) {
   if (this->nameA > c.nameA) { return true; }
-  if (this->nameB > c.nameB) { return true; }
-  if (this->nameDomain > c.nameDomain) { return true; }
-  if (this->topLevelDomain > c.topLevelDomain) { return true; }
+  if (this->nameA == c.nameA && this->nameB > c.nameB) { return true; }
+  if (this->nameB == c.nameB && this->nameDomain > c.nameDomain) { return true; }
+  if (this->nameDomain == c.nameDomain && this->topLevelDomain > c.topLevelDomain) { return true; }
   return false;
 }
 
 bool ComplexKey::operator<(const ComplexKey& c) {
   if (this->nameA < c.nameA) { return true; }
-  if (this->nameB < c.nameB) { return true; }
-  if (this->nameDomain < c.nameDomain) { return true; }
-  if (this->topLevelDomain < c.topLevelDomain) { return true; }
+  if (this->nameA == c.nameA && this->nameB < c.nameB) { return true; }
+  if (this->nameB == c.nameB && this->nameDomain < c.nameDomain) { return true; }
+  if (this->nameDomain == c.nameDomain && this->topLevelDomain < c.topLevelDomain) { return true; }
   return false;
 }
 
