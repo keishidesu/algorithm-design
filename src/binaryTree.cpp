@@ -31,22 +31,40 @@ BinaryTree::BinaryTree(std::string fileName) {
   
   std::cout << "Inserting Duration: " << duration.count() << "s\n";
 
-  // search from respective file
-  std::string searchFileName = "Old" + fileName;
-  std::cout << "Searching from " << searchFileName << "..." << std::endl;
-  auto sStart = std::chrono::system_clock::now();
-  std::ifstream searchFile(fileName);
-  std::string searchEmail;
-  while(std::getline(searchFile, searchEmail)){
-    searchElement(root, searchEmail, 0, 1, false);
+  // search existed email from respective file
+  std::string oldFileName = "Old" + fileName;
+  std::cout << "Searching from " << oldFileName << "..." << std::endl;
+  auto oldStart = std::chrono::system_clock::now();
+  std::ifstream oldFile(oldFileName);
+  std::string oldEmail;
+  while(std::getline(oldFile, oldEmail)){
+    searchElement(root, oldEmail, 0, 0, false);
   }
-  searchFile.close();
+  oldFile.close();
   std::cout << "Searching Complete" << std::endl;
-  auto sEnd = std::chrono::system_clock::now();
+  auto oldEnd = std::chrono::system_clock::now();
 
-  std::chrono::duration<double> searchDuration = sEnd - sStart;
+  std::chrono::duration<double> oldDuration = oldEnd - oldStart;
   
-  std::cout << "Searching Duration: " << searchDuration.count() << "s\n";
+  std::cout << "Searching Duration: " << oldDuration.count() << "s\n";
+
+  // search not existing email from respective file
+  std::string newFileName = "New" + fileName;
+  std::cout << "Searching from " << newFileName << "..." << std::endl;
+  auto newStart = std::chrono::system_clock::now();
+  std::ifstream newFile(newFileName);
+  std::string newEmail;
+  while(std::getline(newFile, newEmail)){
+    searchElement(root, newEmail, 0, 0, false);
+  }
+  oldFile.close();
+  std::cout << "Searching Complete" << std::endl;
+  auto newEnd = std::chrono::system_clock::now();
+
+  std::chrono::duration<double> newDuration = newEnd - newStart;
+  
+  std::cout << "Searching Duration: " << newDuration.count() << "s\n";
+
 }
 
 avlnode *BinaryTree::insertElement(avlnode *node, std::string newNode) {
@@ -63,12 +81,13 @@ avlnode *BinaryTree::insertElement(avlnode *node, std::string newNode) {
   else if (newCK < node -> current) {
     // std::cout << "Go left " << std::endl;
     node -> left = insertElement(node -> left, newNode);
+    node = balance(node);
   }
   else if (newCK > node -> current || newCK == node -> current) {
     // std::cout << "Go right " << std::endl;
     node -> right = insertElement(node -> right, newNode);
+    node = balance(node);
   }
-  node = balance(node);
   return node;
 }
 
@@ -79,11 +98,11 @@ void BinaryTree::searchElement(avlnode *node, std::string searchNode, int height
     std::cout << "Email " << searchNode << " is not found." << std::endl;
   }
   else if (node -> current > searchCK) {
-    searchElement(node -> left, searchNode, height + 1, index*2+1, found);
+    searchElement(node -> left, searchNode, height + 1, (index*2)+1, found);
     // std::cout << "Search Left " << std::endl;
   }
   else if (node -> current < searchCK) {
-    searchElement(node -> right, searchNode, height + 1, index*2+2, found);
+    searchElement(node -> right, searchNode, height + 1, (index*2)+2, found);
     // std::cout << "Search Right " << std::endl;
   }
   else {
@@ -126,7 +145,7 @@ avlnode *BinaryTree::balance(avlnode *node) {
 
 // Rotations functions
 avlnode *BinaryTree::rightRotate(avlnode *node) {
-  // std::cout << "right rotating" << std::endl;
+  // std::cout << "right rotating " << node -> left -> email << " and " << node -> email << std::endl;
   avlnode *temp =  node -> left;
   node -> left = temp -> right;
   temp -> right = node;
@@ -134,7 +153,7 @@ avlnode *BinaryTree::rightRotate(avlnode *node) {
 }
 
 avlnode *BinaryTree::leftRotate(avlnode *node) {
-  // std::cout << "left rotating" << std::endl;
+  // std::cout << "left rotating" << node -> right -> email << " and " << node -> email << std::endl;
   avlnode *temp =  node -> right;
   node -> right = temp -> left;
   temp -> left = node;

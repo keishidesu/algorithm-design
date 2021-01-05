@@ -157,8 +157,8 @@ int main() {
 
   #ifdef BUILD_BINARYTREE
   BinaryTree bst1("SetA.txt");
-  // BinaryTree bst2("SetB.txt");
-  // BinaryTree bst3("SetC.txt");
+  BinaryTree bst2("SetB.txt");
+  BinaryTree bst3("SetC.txt");
   std::string x;
   std::cin >> x;
   // std::cout << "Binary Tree Build: " << obj.value << std::endl;
