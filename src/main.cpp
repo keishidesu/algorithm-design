@@ -63,7 +63,7 @@ int main() {
   
   //find non exist email
   auto findEmailStart = std::chrono::system_clock::now();
-  std::ifstream newFile("NewSetA.txt");
+  std::ifstream newFile("NewSet.txt");
   std::string newEmail;
   for (int i = 0; i < runs; ++i) {
     while(std::getline(newFile, newEmail)) {
@@ -90,14 +90,14 @@ int main() {
 
   // insertion
   auto insertStart = std::chrono::steady_clock::now();
-  HashTableLinear hashTableLinear("SetA.txt", 100);
+  HashTableLinear hashTableLinear("SetC.txt", 500000);
   auto insertStop = std::chrono::steady_clock::now();
   auto insertDuration = std::chrono::duration_cast<std::chrono::nanoseconds>(insertStop - insertStart); 
   std::cout << "Time taken for hashtable linear insertion: " << insertDuration.count() << " nanoseconds" << std::endl; 
 
   //find exist email
   auto findExistEmailStart = std::chrono::system_clock::now();
-  std::ifstream oldFile("OldSetA.txt");
+  std::ifstream oldFile("OldSetC.txt");
   std::string oldEmail;
   for (int i = 0; i < runs; ++i) {
     while(std::getline(oldFile, oldEmail)) {
@@ -114,7 +114,7 @@ int main() {
   
   //find non exist email
   auto findEmailStart = std::chrono::system_clock::now();
-  std::ifstream newFile("NewSetA.txt");
+  std::ifstream newFile("NewSetC.txt");
   std::string newEmail;
   for (int i = 0; i < runs; ++i) {
     while(std::getline(newFile, newEmail)) {
@@ -156,10 +156,15 @@ int main() {
   #endif
 
   #ifdef BUILD_BINARYTREE
-  BinaryTree obj;
-  std::cout << "Binary Tree Build: " << obj.value << std::endl;
+  // BinaryTree bst1("SetA.txt");
+  //BinaryTree bst2("SetB.txt");
+  BinaryTree bst3("SetC.txt");
+  std::string x;
+  std::cin >> x;
+  // std::cout << "Binary Tree Build: " << obj.value << std::endl;
   #ifdef BUILD_DEBUG
   std::cout << "Binary Tree Build Debug" << std::endl;
+  BinaryTree bst1("SetA.txt");
   #endif
   #endif
 
