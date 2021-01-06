@@ -81,13 +81,12 @@ avlnode *BinaryTree::insertElement(avlnode *node, std::string newNode) {
   else if (newCK < node -> current) {
     // std::cout << "Go left " << std::endl;
     node -> left = insertElement(node -> left, newNode);
-    node = balance(node);
   }
   else if (newCK > node -> current || newCK == node -> current) {
     // std::cout << "Go right " << std::endl;
     node -> right = insertElement(node -> right, newNode);
-    node = balance(node);
   }
+  node = balance(node);
   return node;
 }
 
