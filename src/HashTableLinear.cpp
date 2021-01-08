@@ -32,7 +32,7 @@ void HashTableLinear::insert(std::string email) {
   ComplexKey emailKey(email);
   int index = hashFunction(email);
   while (hashTable[index] != nullptr && hashTable[index]->getKey() != emailKey) {
-    if (++index > tableSize) {
+    if (++index >= tableSize) { 
       index = 0;
     }
   }

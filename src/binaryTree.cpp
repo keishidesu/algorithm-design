@@ -12,7 +12,7 @@ BinaryTree::BinaryTree(std::string fileName) {
   AvlNode *root = NULL;
   std::cout << "Inserting " << fileName << "..." << std::endl;
   auto start = std::chrono::system_clock::now();
-  std::ifstream file(fileName);
+  std::ifstream file("output/" + fileName);
   std::string email;
   while(std::getline(file, email)){
     root = insertElement(root, email);
@@ -29,7 +29,7 @@ BinaryTree::BinaryTree(std::string fileName) {
   std::string oldFileName = "Old" + fileName;
   std::cout << "Searching from " << oldFileName << "..." << std::endl;
   auto oldStart = std::chrono::system_clock::now();
-  std::ifstream oldFile(oldFileName);
+  std::ifstream oldFile("output/" + oldFileName);
   std::string oldEmail;
   while(std::getline(oldFile, oldEmail))
     searchElement(root, oldEmail, 0);
@@ -45,7 +45,7 @@ BinaryTree::BinaryTree(std::string fileName) {
   std::string newFileName = "New" + fileName;
   std::cout << "Searching from " << newFileName << "..." << std::endl;
   auto newStart = std::chrono::system_clock::now();
-  std::ifstream newFile(newFileName);
+  std::ifstream newFile("output/" + newFileName);
   std::string newEmail;
   while(std::getline(newFile, newEmail))
     searchElement(root, newEmail, 0);
