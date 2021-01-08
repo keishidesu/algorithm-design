@@ -146,7 +146,7 @@ string Generator::getOldEmail (string set[], string oldset[]) {
 template <typename T>
 void Generator::printArray (T A[], int n, string name) {
   ofstream writeFile;
-  writeFile.open(name + ".txt");
+  writeFile.open("output/" + name + ".txt");
   for (int i = 0; i < n; i++ )
     writeFile << A[i] << endl;
   writeFile.close();

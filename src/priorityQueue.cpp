@@ -18,7 +18,7 @@ PriorityQueue::PriorityQueue(std::string fileName) {
   name = fileName;
   std::cout << "Inserting " << fileName << "..." << std::endl;
   auto start = std::chrono::system_clock::now();
-  std::ifstream file(fileName);
+  std::ifstream file("output/" + fileName);
   std::string email;
   while(std::getline(file, email)){
     enqueue(getNode(email));
@@ -106,7 +106,7 @@ void PriorityQueue::print() {
 }
 
 void PriorityQueue::printToFile(std::string filename) {
-  std::ofstream file(filename + ".txt");
+  std::ofstream file("output/" + filename + ".txt");
   for (int i = 0; i < heap.size(); i++)
     file << heap[i].getValue() << std::endl;
 }
