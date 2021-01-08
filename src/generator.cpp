@@ -162,4 +162,3 @@ bool Generator::checkDuplication (string email, string set[]) {
 }
 
 #endif
-   

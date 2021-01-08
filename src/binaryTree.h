@@ -1,4 +1,3 @@
-
 #ifdef BUILD_BINARYTREE
 
 #ifndef BINARYTREE_H
@@ -9,6 +8,7 @@
 
 class AvlNode {
     public:
+    // AvlNode(std::string n) { current = ComplexKey(n); left = right = nullptr; height = 1; email = n;}
     std::string email;
     ComplexKey current;
     AvlNode *left;

@@ -1,4 +1,3 @@
-
 #ifdef BUILD_BINARYTREE
 
 #include "binaryTree.h"
