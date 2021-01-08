@@ -10,7 +10,7 @@ $ build
 $ build generator
 $ build hashtablechain
 $ build hashtablelinear
-$ build binaryTree
+$ build binarytree
 $ build priorityQueue
 ```
 
@@ -21,6 +21,6 @@ $ build debug
 $ build generator debug
 $ build hashtablechain debug
 $ build hashtablelinear debug
-$ build binaryTree debug
+$ build binarytree debug
 $ build priorityQueue debug
 ```

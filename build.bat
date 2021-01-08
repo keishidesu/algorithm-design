@@ -12,6 +12,14 @@ if not exist build\NUL (
   echo Build directory exists!
 )
 
+:: Make output folder if not exists
+if not exist output\NUL (
+  echo Creating output directory...
+  mkdir output
+) else (
+  echo output directory exists!
+)
+
 if "%2" == "debug" (
   echo This is a debug build!
   set debug=-DBUILD_DEBUG
