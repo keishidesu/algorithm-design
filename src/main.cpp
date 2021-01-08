@@ -164,7 +164,7 @@ int main() {
   // std::cout << "Binary Tree Build: " << obj.value << std::endl;
   #ifdef BUILD_DEBUG
   std::cout << "Binary Tree Build Debug" << std::endl;
-  BinaryTree bst1("SetA.txt");
+  BinaryTree bstdebug("SetA.txt");
   #endif
   #endif
 

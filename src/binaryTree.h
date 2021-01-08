@@ -6,27 +6,27 @@
 #include <string>
 #include "ComplexKey.h"
 
-struct avlnode {
+class AvlNode {
+    public:
+    // AvlNode(std::string n) { current = ComplexKey(n); left = right = nullptr; height = 1; email = n;}
     std::string email;
     ComplexKey current;
-    avlnode *left;
-    avlnode *right;
+    AvlNode *left;
+    AvlNode *right;
+    unsigned int height;
+    AvlNode(std::string newNode) {current = ComplexKey(newNode); left = right = NULL; height = 1; email = newNode;}
 };
 
 class BinaryTree {
   public:
-    struct avlnode *root;
-    BinaryTree();
+    unsigned int getHeight(AvlNode *node);
     BinaryTree(std::string fileName);
-    avlnode *insertElement(avlnode *node, std::string newNode);
-    avlnode *balance(avlnode *node);
-    avlnode *leftRotate(avlnode *node);
-    avlnode *rightRotate(avlnode *node);
-    avlnode *leftRightRotate(avlnode *node);
-    avlnode *rightLeftRotate(avlnode *node);
-    int balanceFactor(avlnode *node);
-    int getHeight(avlnode *node);
-    void searchElement(avlnode *node, std::string searchNode, int height, int index, bool found);
+    AvlNode *insertElement(AvlNode *node, std::string newNode);
+    AvlNode *leftRotate(AvlNode *node);
+    AvlNode *rightRotate(AvlNode *node);
+    int balanceFactor(AvlNode *node);
+    void searchElement(AvlNode *node, std::string searchNode, int index);
+    // void searchElement(AvlNode *node, std::string searchNode);
 };
 
 
