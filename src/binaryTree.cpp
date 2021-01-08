@@ -79,6 +79,7 @@ avlnode *BinaryTree::insertElement(avlnode *node, std::string newNode) {
     std::cout << "Go Right" << std::endl;
     node -> right = insertElement(node -> right, newNode);
   }
+  updateHeight(node);
   return balance(node);
 }
 
@@ -122,7 +123,7 @@ void BinaryTree::searchElement(avlnode *node, std::string searchNode) {
 
 unsigned int BinaryTree::getHeight(avlnode *node) {
   // std::cout << "getting height" << std::endl;
-  return node ? node -> height : 0;
+  return !node ? 0 : node -> height;
   // if (node == nullptr) 
   //   return 0;
   // int leftHeight = getHeight(node -> left);
@@ -134,6 +135,7 @@ int BinaryTree::balanceFactor(avlnode *node) {
   // int leftHeight = getHeight(node -> left);
   // int rightHeight = getHeight(node -> right);
   // return rightHeight - leftHeight;
+  // std::cout << "balance factor" << std::endl;
   return getHeight(node -> right) - getHeight(node -> left);
 }
 
@@ -163,22 +165,34 @@ avlnode *BinaryTree::balance(avlnode *node) {
 // Rotations functions
 avlnode *BinaryTree::rightRotate(avlnode *node) {
   std::cout << "right rotating "  << std::endl;
-  avlnode *temp =  node -> left;
-  node -> left = temp -> right;
-  temp -> right = node;
+  avlnode *x = node -> left;
+  avlnode *t2 = x -> right;
+  x->right = node;
+  node->left = t2;
   updateHeight(node);
-  updateHeight(temp);
-  return temp;
+  updateHeight(x);
+  // avlnode *temp = node -> left;
+  // node -> left = temp -> right;
+  // temp -> right = node;
+  // updateHeight(node);
+  // updateHeight(temp);
+  return x;
 }
 
 avlnode *BinaryTree::leftRotate(avlnode *node) {
   std::cout << "left rotating" << std::endl;
-  avlnode *temp = node -> right;
-  node -> right = temp -> left;
-  temp -> left = node;
+  avlnode *x = node -> right;
+  avlnode *t2 = x -> left;
+  x->left = node;
+  node->right = t2;
   updateHeight(node);
-  updateHeight(temp);
-  return temp;
+  updateHeight(x);
+  // avlnode *temp = node -> right;
+  // node -> right = temp -> left;
+  // temp -> left = node;
+  // updateHeight(node);
+  // updateHeight(temp);
+  return x;
 }
 
 // avlnode *BinaryTree::leftRightRotate(avlnode *node) {
